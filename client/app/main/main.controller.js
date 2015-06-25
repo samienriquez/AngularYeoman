@@ -13,8 +13,10 @@ angular.module('proyecto1App')
     $scope.message="Mensaje";
     $scope.send="Enviar";
     $scope.location="Ubicación";
-    $scope.address_part1="Cra 10 # 10-57";
-    $scope.address_part2="Urb. Argentina";
+    $scope.address_part1="Cra 10 # 10-57 Urb. Argentina";
+    $scope.address_part2="Popayan - Colombia";
+    $scope.around="En la Red";
+    $scope.aboutme1="Ingeniera en Electronica y Telecomunicaciones con enfasis en el area de telematica, un año de experiencia en desarrollo web y movil";
 
     // $scope.awesomeThings = [];
 
