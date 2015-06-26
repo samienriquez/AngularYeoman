@@ -5,6 +5,9 @@ angular.module('proyecto1App')
     return {
       templateUrl: 'app/directives/work/work.html',
       restrict: 'EA',
+      scope: { 
+      info: '=' 
+      }, 
       link: function (scope, element, attrs) {
       }
     };

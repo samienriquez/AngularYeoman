@@ -21,6 +21,23 @@ angular.module('proyecto1App')
     $scope.aboutme2="Especial interes en tecnologias Android, Windows Phone, Unity y JavaScript.";
     $scope.gmail="https://plus.google.com/114297311619084407901/posts";
     $scope.facebook="https://www.facebook.com/sami915";
+    $scope.works=[{
+            image:"assets/images/img/cabin.png",
+            url:"#portfolioModal1"
+        },
+        {
+            image:"assets/images/img/cake.png",
+            url:"#portfolioModal2"
+        },
+        {
+            image:"assets/images/img/circus.png",
+            url:"#portfolioModal3"
+        },
+        {
+            image:"assets/images/img/game.png",
+            url:"#portfolioModal4"
+        }];
+    
     // $scope.awesomeThings = [];
 
     // $http.get('/api/things').success(function(awesomeThings) {
