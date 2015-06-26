@@ -16,8 +16,8 @@ angular.module('proyecto1App')
     $scope.address_part1="Cra 10 # 10-57 Urb. Argentina";
     $scope.address_part2="Popayan - Colombia";
     $scope.around="En la Red";
-    $scope.aboutme1="Ingeniera en Electronica y Telecomunicaciones con enfasis en el area de telematica, un año de experiencia en desarrollo web y movil";
-
+    $scope.aboutme1="Ingeniera en Electronica y Telecomunicaciones con enfasis en el area de telematica, un año de experiencia en desarrollo web y movil con varias aplicaciones publicadas";
+    $scope.aboutme2="Especial interes en tecnologias Android, Windows Phone, Unity y JavaScript";
     // $scope.awesomeThings = [];
 
     // $http.get('/api/things').success(function(awesomeThings) {
