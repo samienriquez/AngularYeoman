@@ -9,7 +9,7 @@ angular.module('proyecto1App')
       	$scope.openModal=function (size) {
 
 		 var modalInstance = $modal.open({
-	      animation: $scope.animationsEnabled,
+	      animation: true,
 	      templateUrl: 'app/modals/modal.html',
 	      controller: 'ModalCtrl',
 	      size: size,
@@ -20,11 +20,11 @@ angular.module('proyecto1App')
 	      }
 	    });
 
-	    modalInstance.result.then(function (selectedItem) {
+	 /*   modalInstance.result.then(function (selectedItem) {
 	      $scope.selected = selectedItem;
 	    }, function () {
 	      $log.info('Modal dismissed at: ' + new Date());
-	    });
+	    });*/
       		
       	}
       },
