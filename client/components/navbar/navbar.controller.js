@@ -3,9 +3,17 @@
 
 
 angular.module('proyecto1App')
-  .controller('NavbarCtrl', function ($scope, $location) {
+  .controller('NavbarCtrl', function ($scope, $location, $http) {
 
-    $scope.title="Samara Enriquez";
+$http.get('/api/homepages').
+      success(function(data, status, headers, config) {
+        $scope.title=data[0].name;
+       }).
+      error(function(data, status, headers, config) {
+        alert("No se pudo traer la info");
+        console.log("Error al traer los trabajos");
+      });
+   
     $scope.portfolio="Portafolio";
     $scope.about="Sobre mi";
     $scope.contact="Contáctame";

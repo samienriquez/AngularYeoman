@@ -15,6 +15,7 @@ angular.module('proyecto1App')
         $scope.aboutme2=data[0].aboutme2;
         $scope.gmail=data[0].gmail;
         $scope.facebook=data[0].facebook;
+        $scope.photo=data[0].photo;
       }).
       error(function(data, status, headers, config) {
         alert("No se pudo traer la info");
