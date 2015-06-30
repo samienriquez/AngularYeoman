@@ -21,30 +21,19 @@ angular.module('proyecto1App')
     $scope.aboutme2="Especial interes en tecnologias Android, Windows Phone, Unity y JavaScript.";
     $scope.gmail="https://plus.google.com/114297311619084407901/posts";
     $scope.facebook="https://www.facebook.com/sami915";
-    $scope.works=[{
-            title:"Trabajo Uno",
-            description:" On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!",
-            image:"assets/images/img/cabin.png",
-            url:"#portfolioModal1"
-        },
-        {
-            title:"Trabajo dos",
-            description:"Descripcion trabajo dos:  On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12! ",
-            image:"assets/images/img/cake.png",
-            url:"#portfolioModal2"
-        },
-        {
-            title:"Trabajo tres",
-            description:"Descripcion trabajo tres:  On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!",
-            image:"assets/images/img/circus.png",
-            url:"#portfolioModal3"
-        },
-        {
-            title:"Trabajo cuatro",
-            description:" On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!",
-            image:"assets/images/img/game.png",
-            url:"#portfolioModal4"
-        }];
+
+    $scope.works = [];
+    $http.get('/api/works').
+      success(function(data, status, headers, config) {
+        $scope.works = data;
+        console.log( $scope.works);
+      }).
+      error(function(data, status, headers, config) {
+        alert("No se pudo traer la info");
+        console.log("Error al traer los trabajos");
+      });
+
+  
     
     // $scope.awesomeThings = [];
 
