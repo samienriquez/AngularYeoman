@@ -2,9 +2,24 @@
 
 angular.module('proyecto1App')
   .controller('MainCtrl', function ($scope, $http) {
-    $scope.title="Samara Catalina Enriquez";
-    $scope.carrer="Ingeniera Electronica y Telecomunicaciones";
-    $scope.aboutCarrer="Desarrollo web y movil";
+
+     $http.get('/api/homepages').
+      success(function(data, status, headers, config) {
+        console.log(data[0]);
+        $scope.title=data[0].name;
+        $scope.carrer=data[0].carrer;
+        $scope.aboutCarrer=data[0].aboutCarrer;
+        $scope.address_part1=data[0].address_part1;
+        $scope.address_part2=data[0].address_part2;
+        $scope.aboutme1=data[0].aboutme1;
+        $scope.aboutme2=data[0].aboutme2;
+        $scope.gmail=data[0].gmail;
+        $scope.facebook=data[0].facebook;
+      }).
+      error(function(data, status, headers, config) {
+        alert("No se pudo traer la info");
+        console.log("Error al traer los trabajos");
+      });
     $scope.portfolio="Portafolio";
     $scope.contact="Contáctame";
     $scope.about="Sobre mi";
@@ -14,14 +29,8 @@ angular.module('proyecto1App')
     $scope.message="Mensaje";
     $scope.send="Enviar";
     $scope.location="Ubicación";
-    $scope.address_part1="Cra 10 # 10-57 Urb. Argentina";
-    $scope.address_part2="Popayan - Colombia";
     $scope.around="Encuentrame en la Red";
-    $scope.aboutme1="Ingeniera en Electronica y Telecomunicaciones con enfasis en el area de telematica, un año de experiencia en desarrollo web y movil con varias aplicaciones publicadas.";
-    $scope.aboutme2="Especial interes en tecnologias Android, Windows Phone, Unity y JavaScript.";
-    $scope.gmail="https://plus.google.com/114297311619084407901/posts";
-    $scope.facebook="https://www.facebook.com/sami915";
-
+   
     $scope.works = [];
     $http.get('/api/works').
       success(function(data, status, headers, config) {
@@ -32,7 +41,6 @@ angular.module('proyecto1App')
         alert("No se pudo traer la info");
         console.log("Error al traer los trabajos");
       });
-
   
     
     // $scope.awesomeThings = [];
