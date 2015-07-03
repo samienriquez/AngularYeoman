@@ -1,0 +1,22 @@
+<section class="container">
+  <h1>Works</h1>
+  <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Image_Url</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="work in works">
+          <th scope="row">{{work._id}}</th>
+          <td>{{work.title}}</td>
+          <td>{{work.description}}</td>
+          <td>{{work.image}}</td>
+          <td><a href="">Edit</a></td>
+        </tr>
+      </tbody>
+    </table>
+</section>
