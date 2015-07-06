@@ -1,19 +1,19 @@
 'use strict';
 
 angular.module('proyecto1App')
-  .controller('NewWorkCtrl', function ($scope, work, $window) {
-  	$scope.work=null;
+  .controller('NewProfileCtrl', function ($scope, profile, $window) {
 
-  	$scope.save=function () {
-  		work.new($scope.work).success(function(data, status, headers, config) {
+  	$scope.profile=null;
+
+  	$scope.save=function  () {
+  		profile.new($scope.profile).success(function(data, status, headers, config) {
          alert("Se guardo la info");
-         $window.location.href = '/works'
+         $window.location.href = '/profiles'
       }).
       error(function(data, status, headers, config) {
         alert("No se pudo traer la info");
         console.log("Error al traer los trabajos");
       });
   	}
-  	
     
   });

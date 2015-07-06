@@ -1,0 +1,32 @@
+<section class="container">
+	<div class="col-md-8 col-md-offset-3">
+		<h1>Profile</h1><br/>
+		<form ng-submit="saveEdit()">
+		  
+		    <h4>Name: <small>{{profile.name}}</small></h4>
+		    <h4>Carrer: <small>{{profile.carrer}}</small></h4>
+		    <h4>Job: <small>{{profile.job}}</small></h4>
+		    <h4>Address: <small>{{profile.address}}</small></h4>
+		    <h4>Location: <small>{{profile.location}}</small></h4>
+		    <h4>About me:</h4> 
+		    	<p><small>{{profile.about}}</small></p>
+		    <h4>Photo: <small>{{profile.photo}}</small></h4>
+		    <h4>Gmail: <small>{{profile.gmail}}</small></h4>
+		    <h4>Facebook: <small>{{profile.facebook}}</small></h4>
+		    <h4>Twitter: <small>{{profile.twitter}}</small></h4><br>
+		    
+		    <div>
+		    	<a href="/profiles/new" class="btn btn-default btn-lg " role="button" ng-show="!visible">New</a>
+				<a href="/profiles/{{profile._id}}/edit" ng-show="visible">Edit</a>
+				<button ng-click="delete(profile._id)" ng-show="visible">Delete</a></button>
+		    </div>
+
+		  
+		  
+		  
+		</form>
+
+	</div>
+	
+	
+</section>

@@ -4,7 +4,9 @@ angular.module('proyecto1App')
   .service('work', function ($http) {
 
   	return{
-  		all: $http.get('/api/works'),
+  		all: function () {
+        return $http.get('/api/works')
+      },
   		get: function (id) {
   			return $http.get('/api/works/'+id)
   		},
@@ -14,8 +16,11 @@ angular.module('proyecto1App')
   		},
   		new: function(work){
   			return $http.post('/api/works/',{title: work.title, description: work.description, image: work.image})
-        }
+        },
 
+      delete: function (id) {
+        return $http.delete('/api/works/'+id)
+      }
   		
   	}
     // AngularJS will instantiate a singleton by calling "new" on this function

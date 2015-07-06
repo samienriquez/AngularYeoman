@@ -5,8 +5,15 @@ var mongoose = require('mongoose'),
 
 var HomepageSchema = new Schema({
   name: String,
-  info: String,
-  active: Boolean
+  carrer: String,
+  job: String,
+  address: String,
+  location: String,
+  about: String,
+  photo: String,
+  gmail: String,
+  facebook: String,
+  twitter: String
 });
 
 module.exports = mongoose.model('Homepage', HomepageSchema);

@@ -8,10 +8,10 @@ angular.module('proyecto1App')
         console.log(data[0]);
         $scope.title=data[0].name;
         $scope.carrer=data[0].carrer;
-        $scope.aboutCarrer=data[0].aboutCarrer;
-        $scope.address_part1=data[0].address_part1;
-        $scope.address_part2=data[0].address_part2;
-        $scope.aboutme1=data[0].aboutme1;
+        $scope.job=data[0].job;
+        $scope.address=data[0].address;
+        $scope.location=data[0].location;
+        $scope.aboutme=data[0].about;
         $scope.aboutme2=data[0].aboutme2;
         $scope.gmail=data[0].gmail;
         $scope.facebook=data[0].facebook;
@@ -29,7 +29,7 @@ angular.module('proyecto1App')
     $scope.phone="Telefono";
     $scope.message="Mensaje";
     $scope.send="Enviar";
-    $scope.location="Ubicación";
+    $scope.locationTitle="Ubicación";
     $scope.around="Encuentrame en la Red";
    
     $scope.works = [];
