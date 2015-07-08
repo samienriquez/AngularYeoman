@@ -6,7 +6,77 @@
 
 var errors = require('./components/errors');
 
+
+var azure = require('azure-storage');
+var retryOperations = new azure.ExponentialRetryPolicyFilter();
+var blobSvc = azure.createBlobService().withFilter(retryOperations);
+blobSvc.createContainerIfNotExists('images', {publicAccessLevel: 'blob'}, function(error, result, response) {
+  if (!error) {
+    console.log(result);
+    console.log(response);
+  } else {
+    console.log('error creating azure blob container ', error);
+  }
+  });
+//^^^AZURE CONFIG
+
+var uploadImage = function(req, res, imageName, cb) {
+  var localPath = 'packages/theme/public/assets/img/uploads/' + imageName;
+  blobSvc.createBlockBlobFromLocalFile('images', imageName, localPath, function(error, result, response) {
+    if (!error) {
+      console.log('file uploaded');
+      cb();
+    } else {
+      console.log('error on image upload is ', error);
+      return error;
+    }
+  });
+};
+
+// ****** MULTER CONFIG
+var multer = require('multer');
+var work_controller = require('./api/work/work.controller');
+var fs = require('fs');
+
 module.exports = function(app) {
+  var fileTooLarge = false;
+  app.post('/api/works/uploads', multer({
+    dest: 'packages/theme/public/assets/img/uploads/',
+    limits: {
+      fileSize: 500000
+    },
+    rename: function (fieldname, filename, req, res) {
+      var username = req.imagename;
+      return username + '001';
+    },
+    onFileSizeLimit: function (file) {
+      fileTooLarge = true;
+    },
+    onFileUploadStart: function (file) {
+      fileTooLarge = false;
+      console.log(file.originalname + ' is starting ...');
+    },
+    onFileUploadComplete: function (file, req, res) {
+      console.log(file.name + ' uploaded to  ' + file.path);
+      var newFileName = req.files.file[0].name;
+      if(!fileTooLarge) {
+        uploadImage(req, res, newFileName, function() {
+          file.path = 'http://sami915.blob.core.windows.net/images/' + newFileName;
+          //file param is actually an object with the path as a property
+          res.send(file);
+          //delete file from local uploads folder
+          fs.unlink('packages/theme/public/assets/img/uploads/' + newFileName);
+        });
+      } else {
+        fs.unlink('packages/theme/public/assets/img/uploads/' + newFileName);
+        res.json({
+          uploadError: 'Upload failed. File must be less than 500 KB'
+        });
+      }
+    }
+  }), function(req, res) {
+      
+  });
 
   // Insert routes below
   app.use('/api/homepages', require('./api/homepage'));

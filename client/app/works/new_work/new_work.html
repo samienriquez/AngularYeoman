@@ -15,4 +15,20 @@
   </div>
   <button type="submit" class="btn btn-default">Save</button>
 </form>
+
+<div style="text-align: center;">
+  <div class="btn btn-default" ngf-select ngf-change="upload($files)" ng-multiple="multiple">Upload on file change</div>
+  <!-- <div class="btn btn-default" ngf-select ngf-change="upload($files)"> Upload on file change </div> -->
+  <div style="color:red;" ng-if="uploadError">{{uploadError}}</div>
+</div>
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="{{progressPercentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progressPercentage}}%;">
+    {{progressPercentage}}
+  </div>
+</div>
+
+<img src="{{image.path}}">
+
+
 </section>
