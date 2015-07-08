@@ -46,8 +46,8 @@ module.exports = function(app) {
       fileSize: 500000
     },
     rename: function (fieldname, filename, req, res) {
-      var username = req.imagename;
-      return username + '001';
+      var new_name = req.body.name;
+      return new_name;
     },
     onFileSizeLimit: function (file) {
       fileTooLarge = true;

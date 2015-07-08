@@ -3,8 +3,22 @@
 angular.module('proyecto1App')
   .controller('NewWorkCtrl', function ($scope, work, $window, Upload) {
   	$scope.work=null;
+    $scope.work_image = '';
+    $scope.isLoading = false;
 
-  	$scope.save=function () {
+    var makeid = function(){
+      var text = "";
+      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+      for( var i=0; i < 5; i++ )
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+      return text;
+    }
+
+    $scope.save=function () {
+      $scope.work.image = $scope.work_image.path;
+
   		work.new($scope.work).success(function(data, status, headers, config) {
          alert("Se guardo la info");
          $window.location.href = '/works'
@@ -23,12 +37,13 @@ angular.module('proyecto1App')
     
     $scope.upload = function(files) { 
       $scope.progressPercentage= 0;
+      $scope.isLoading = true;
       if (files && files.length) {
         var file = files[0];
         Upload.upload({
           url: '/api/works/uploads',
           fields: {
-            'imagename': 'a_name'
+            'name': 'work-'+makeid()
           },
           file: file
         }).progress(function(evt) {
@@ -37,8 +52,10 @@ angular.module('proyecto1App')
           evt.config.file.name);
           $scope.progressPercentage=  progressPercentage ;
         }).success(function(data, status, headers, config) {
-          $scope.image = data;
-          if ($scope.image.uploadError) {
+          $scope.isLoading = false;
+          $scope.work_image = data;
+          
+          if ($scope.work_image.uploadError) {
             $scope.uploadError = $scope.image.uploadError;
             console.log('error on hand');
             console.log($scope.image.uploadError);
@@ -46,6 +63,7 @@ angular.module('proyecto1App')
             $scope.uploadError = '';
             console.log('ok');
             $scope.$apply;
+            
             // UserImage.saveUserImage(thisUser, $scope.image.path, function(data) {
             //   $scope.loadUserImage(data.username);
             // });

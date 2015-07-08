@@ -3,19 +3,6 @@
 var _ = require('lodash');
 var Work = require('./work.model');
 
-var azure = require('azure-storage');
-var retryOperations = new azure.ExponentialRetryPolicyFilter();
-var blobSvc = azure.createBlobService().withFilter(retryOperations);
-blobSvc.createContainerIfNotExists('userpictures', {publicAccessLevel: 'blob'}, function(error, result, response) {
-  if (!error) {
-    console.log(result);
-    console.log(response);
-  } else {
-    console.log('error creating azure blob container ', error);
-  }
-  });
-//^^^AZURE CONFIG
-
 // Get list of works
 exports.index = function(req, res) {
   Work.find(function (err, works) {
