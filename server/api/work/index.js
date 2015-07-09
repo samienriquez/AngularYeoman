@@ -12,7 +12,7 @@ router.put('/:id', controller.update);
 router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);
 
-//******** IMAGE UPLOAD API ********* //
+// ******** IMAGE UPLOAD API ********* //
 
 var azure = require('azure-storage');
 var retryOperations = new azure.ExponentialRetryPolicyFilter();
@@ -25,7 +25,8 @@ blobSvc.createContainerIfNotExists('images', {publicAccessLevel: 'blob'}, functi
     console.log('error creating azure blob container ', error);
   }
   });
-//^^^AZURE CONFIG
+
+// ******** AZURE CONFIG ******** //
 
 var createAzureBlob = function(imageName, localPath,cb){
   blobSvc.createBlockBlobFromLocalFile('images', imageName, localPath, function(error, result, response) {
@@ -46,13 +47,12 @@ var uploadImage = function(req, res, imageName, cb) {
   createAzureBlob('preview_'+imageName, localPreviewPath,cb);
 };
 
-// ****** MULTER CONFIG
+// ******** MULTER CONFIG ******** //
 var multer = require('multer');
 var fs = require('fs');
-var fileTooLarge = false;
+var fileTooLarge = null;
 
-
-router.post('/uploads', multer({
+router.post('/images', multer({
   dest: 'packages/theme/public/assets/img/uploads/',
   limits: {
     fileSize: 500000

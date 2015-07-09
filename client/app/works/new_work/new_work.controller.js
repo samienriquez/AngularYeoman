@@ -41,7 +41,7 @@ angular.module('proyecto1App')
       if (files && files.length) {
         var file = files[0];
         Upload.upload({
-          url: '/api/works/uploads',
+          url: '/api/works/images',
           fields: {
             'name': 'work-'+makeid()
           },
