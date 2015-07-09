@@ -20,8 +20,7 @@ blobSvc.createContainerIfNotExists('images', {publicAccessLevel: 'blob'}, functi
   });
 //^^^AZURE CONFIG
 
-var uploadImage = function(req, res, imageName, cb) {
-  var localPath = 'packages/theme/public/assets/img/uploads/' + imageName;
+var createAzureBlob = function(imageName, localPath,cb){
   blobSvc.createBlockBlobFromLocalFile('images', imageName, localPath, function(error, result, response) {
     if (!error) {
       console.log('file uploaded');
@@ -31,6 +30,13 @@ var uploadImage = function(req, res, imageName, cb) {
       return error;
     }
   });
+}
+
+var uploadImage = function(req, res, imageName, cb) {
+  var localPath = 'packages/theme/public/assets/img/uploads/' + imageName;
+  var localPreviewPath = 'packages/theme/public/assets/img/uploads/preview_'+imageName;
+  //createAzureBlob(imageName, localPath,cb);
+  createAzureBlob('preview_'+imageName, localPreviewPath,cb);
 };
 
 // ****** MULTER CONFIG
@@ -59,14 +65,31 @@ module.exports = function(app) {
     onFileUploadComplete: function (file, req, res) {
       console.log(file.name + ' uploaded to  ' + file.path);
       var newFileName = req.files.file[0].name;
+      var easyimg = require('easyimage');
+      
       if(!fileTooLarge) {
-        uploadImage(req, res, newFileName, function() {
-          file.path = 'http://sami915.blob.core.windows.net/images/' + newFileName;
-          //file param is actually an object with the path as a property
-          res.send(file);
-          //delete file from local uploads folder
-          fs.unlink('packages/theme/public/assets/img/uploads/' + newFileName);
-        });
+        easyimg.rescrop({
+          src: "packages/theme/public/assets/img/uploads/"+newFileName,
+          dst: "packages/theme/public/assets/img/uploads/preview_"+newFileName,
+          width: 600, 
+          height:600,
+          fill: true,
+        }).then(
+          function(image) {
+            console.log('Resized and cropped: ' + image.width + ' x ' + image.height);
+            uploadImage(req, res, newFileName, function() {
+              file.path = 'http://sami915.blob.core.windows.net/images/preview_' + newFileName;
+              //file param is actually an object with the path as a property
+              res.send(file);
+              //delete file from local uploads folder
+              fs.unlink('packages/theme/public/assets/img/uploads/' + newFileName);
+            });
+
+          },
+          function (err) {
+            console.log(err);
+          }
+        );
       } else {
         fs.unlink('packages/theme/public/assets/img/uploads/' + newFileName);
         res.json({
